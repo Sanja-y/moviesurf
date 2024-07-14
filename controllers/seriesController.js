@@ -7,7 +7,6 @@ const getPopularShows = asyncHandler(async(req,res)=>{
     const page = req.query.page ? req.query.page : "1"
     console.log(`/tv/popular?api_key=${apiKey}&language=en-US&page=${page}`)
     await axios.get(`/tv/popular?api_key=${apiKey}&language=en-US&page=${page}`).then(response =>{
-        console.log(response.data)  
         res.status(200).json(response.data)
     }).catch(err=>{
         res.status(err.response.status).json(err.response.status)
@@ -16,7 +15,8 @@ const getPopularShows = asyncHandler(async(req,res)=>{
 
 const searchShows = asyncHandler(async (req,res)=>{
     const page = req.query.page ? req.query.page : "1"
-    await axios.get(`/search/tv?api_key=${apiKey}$page=${page}&language=en-US`).then(response=>{
+    const keyWord = (req.query.keyword)
+    await axios.get(`/search/tv?api_key=${apiKey}&query=${keyWord}&page=${page}&language=en-US`).then(response=>{
         res.status(200).json(response.data)
     }).catch(err=>{
         res.status(err.response.status).json(err.response.status)

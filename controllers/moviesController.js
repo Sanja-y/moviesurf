@@ -9,7 +9,6 @@ const getPopular = asyncHandler(async (req, res) => {
     const page = req.query.page ? req.query.page : '1'
     console.log(`/movie/popular?api_key=${apiKey}&language=en-US&page=${page}`)
     await axios.get(`/movie/popular?api_key=${apiKey}&language=en-US&page=${page}`).then(response => {
-        // console.log(response.data)
         res.status(200).json(response.data)
     }
     ).catch(err => 
